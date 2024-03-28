@@ -1,47 +1,38 @@
-//Ex.1 O functie care va numara de la n la 0 in console,
-    // unde n este argumentul primit ,folosind recursie.
+const A = document.getElementById('task-area');
+const B = document.getElementById('single-task');
+const C = document.getElementById('tasks');
 
- //const func1 = (num) => {
-    //console.log(num)
-    //if( num < 2) return num
-    //return func1(num-1)
- //} 
- //func1(10)
- 
- //Ex2 O functie care primeste un string si intoarce numarul 
-    // de vocale din el.
+//Add a new task to the list
 
-   // const lookupVowels = str => {
-    //    let count = 0
-    //    const vowels = ['a', 'e', 'i', 'o', 'u']
-     //   for (let char of str.toLowerCase()) {
-      //      if (vowels.includes(char)) {
-       //         count++
-       //     }
-       // }
-        //return count
-    //} 
-   // console.log(lookupVowels('Ariadna'))
-   //node index 4
+function addTask(event) {
+    event.preventDefault();
+    if (B.value === '') return;
+    const task = createTask(B.value);
+    C.appendChild(task)
+    B.value = '' ;
+}
+//Create a new task element
+function createTask(taskName) {
+    const task = document.createElement('li');
+    task.classList.add('task');
+    task.innerHTML = `
+         <input type="checkbox">
+         <label>${taskName}</label>
+         <span class="delete">&times;</span>
+     `;
+     //Add a delete button 
 
-   //Ex3  O functie care primeste o lista de stringuri si intoarce 
-         //cel mai lung string
+     const delateButton = task.querySelector('.delete');
+     delateButton.addEventListener('click', deleteTask);
 
-         const arr = [18, 888, 1818, 818181, 1818181818]
-         function findMax(arr){
-            let max = arr[0]
-            for(let num of arr) {
-                if (max < num) {
-                    max = num
-                }
-            }
-            return max
-         }
-         console.log(findMax(arr))
+     return task;
 
+} 
+// Delete a task from the list 
 
-    
+function deleteTask(event){
+    event.target.parentElement.remove();
 
-
-
+}
+A.addEventListener('submit', addTask);
 
